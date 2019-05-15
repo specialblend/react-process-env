@@ -17,7 +17,7 @@
     "dist"
   ],
   "name": "react-process-env",
-  "description": "sanitize and inject process.env into window.env for create-react-app",
+  "description": "express middlware to safetly inject an object (such as process.env) from node.js into window.env (for apps like create-react-app)",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/specialblend/react-process-env.git"
