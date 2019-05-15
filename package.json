@@ -1,5 +1,5 @@
 {
-  "main": "src/main.js",
+  "main": "src/index.js",
   "module": "index.js",
   "browser": "index.js",
   "version": "0.0.8",

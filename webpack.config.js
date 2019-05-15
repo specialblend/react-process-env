@@ -2,7 +2,7 @@
 const path = require('path');
 
 module.exports = {
-    entry: './src/main.js',
+    entry: './src/index.js',
     target: 'web',
     module: {
         rules: [
@@ -16,7 +16,7 @@ module.exports = {
     },
     output: {
         libraryTarget: 'commonjs',
-        path: path.join(__dirname, 'build'),
+        path: path.join(__dirname, 'dist'),
         filename: 'index.js',
     },
 };
