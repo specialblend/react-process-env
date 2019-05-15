@@ -1,6 +1,6 @@
 ### react-process-env
 
-express utility to safely inject variables from process.env (node.js) into window.env (react)
+express utility to safely inject variables from `process.env` (node.js) into `window.env` (react)
 
 ### install
 
