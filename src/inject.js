@@ -1,7 +1,18 @@
 import cheerio from 'cheerio';
-import { encodeData } from './common';
+import assert from 'assert';
+import { encodeData, isProcessEnv } from './common';
 
-export const renderScript = data => `<script>window.env=JSON.parse(atob('${encodeData(data)}'))</script>`;
+export const ERROR_INJECT_PROCESS_ENV = '!! DO NOT DIRECTLY PASS `process.env` -- THIS IS A SECURITY RISK !!';
+
+/**
+ * Assert payload !== process.env
+ * @param {Object} payload: payload
+ * @return {*}: payload
+ */
+export const checkPayload = payload => {
+    assert(!isProcessEnv(payload), ERROR_INJECT_PROCESS_ENV);
+    return payload;
+};
 
 /**
  * Render payload into <script> tag

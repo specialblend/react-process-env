@@ -28,3 +28,9 @@ export const encodeData = payload => toBase64(JSON.stringify(payload));
  */
 export const decodeData = payload => JSON.parse(fromBase64(payload));
 
+/**
+ * Returns true is payload is process.env
+ * @param {Object} payload: payload
+ * @return {boolean}: check
+ */
+export const isProcessEnv = payload => payload === process.env;
