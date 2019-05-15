@@ -1,5 +1,5 @@
 {
-  "main": "dist/index.js",
+  "main": "index.js",
   "module": "dist/index.js",
   "browser": "dist/index.js",
   "version": "0.0.12",

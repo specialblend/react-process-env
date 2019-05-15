@@ -1,17 +1,21 @@
-const pkg = require('./dist/index');
+const indexPackage = require('./index');
+const distPackage = require('./dist/index');
 const packageJSON = require('./package.json');
 
 const functions = ['injectPayload', 'injectScript', 'renderScript', 'resolveEnv'];
 
-describe('exports are importable', () => {
+describe('exports correctly', () => {
     test.each(functions)('%p', func => {
-        expect(pkg[func]).toBeFunction();
+        expect(indexPackage[func]).toBeFunction();
+    });
+    test.each(functions)('%p', func => {
+        expect(distPackage[func]).toBeFunction();
     });
 });
 
 describe('package.json has correct exports', () => {
     expect(packageJSON).toMatchObject({
-        main: 'dist/index.js',
+        main: 'index.js',
         module: 'dist/index.js',
         browser: 'dist/index.js',
     });
