@@ -2,7 +2,7 @@
   "main": "src/main.js",
   "module": "build/index.js",
   "browser": "build/index.js",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "scripts": {
     "test": "jest",
     "coverage": "jest --coverage",
