@@ -1,7 +1,7 @@
 {
   "main": "src/main.js",
-  "module": "build/index.js",
-  "browser": "build/index.js",
+  "module": "index.js",
+  "browser": "index.js",
   "version": "0.0.7",
   "scripts": {
     "test": "jest",
@@ -17,7 +17,7 @@
     "dist"
   ],
   "name": "react-process-env",
-  "description": "express middlware to safetly inject an object (such as process.env) from node.js into window.env (for apps like create-react-app)",
+  "description": "express utility to safetly inject variables from process.env (node.js) into window.env (react)",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/specialblend/react-process-env.git"
@@ -46,7 +46,6 @@
     "eslint-plugin-babel": "^5.3.0",
     "jest": "^24.8.0",
     "jest-extended": "^0.11.1",
-    "rollup": "^1.11.3",
     "webpack": "^4.31.0",
     "webpack-cli": "^3.3.2"
   },
