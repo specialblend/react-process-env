@@ -2,7 +2,7 @@
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
   "browser": "dist/index.umd.js",
-  "version": "0.0.18",
+  "version": "0.0.19",
   "scripts": {
     "test": "jest",
     "coverage": "jest --coverage",
@@ -11,13 +11,14 @@
     "build:dev": "webpack --mode=development && rollup -c -w",
     "check": "npm run build && npm run test && npm run coverage && npm run lint",
     "pretest": "npm run build",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build",
+    "docs": "npm run build && cat support/README.md > README.md && jsdoc2md dist/index.esm.js >> README.md"
   },
   "files": [
     "dist"
   ],
   "name": "react-process-env",
-  "description": "express utility to safetly inject variables from process.env (node.js) into window.env (react)",
+  "description": "express utility to safely inject variables from process.env (node.js) into window.env (react)",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/specialblend/react-process-env.git"
@@ -46,6 +47,7 @@
     "eslint-plugin-babel": "^5.3.0",
     "jest": "^24.8.0",
     "jest-extended": "^0.11.1",
+    "jsdoc-to-markdown": "^5.0.0",
     "rollup": "^1.12.0",
     "webpack": "^4.31.0",
     "webpack-cli": "^3.3.2"
