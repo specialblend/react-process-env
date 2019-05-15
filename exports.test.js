@@ -1,22 +1,23 @@
-const indexPackage = require('./index');
-const distPackage = require('./dist/index');
+const packageUMD = require('./dist/index.umd');
+const packageCJS = require('./dist/index.cjs');
+const packageESM = require('./dist/index.esm');
 const packageJSON = require('./package.json');
 
+const packages = [['UMD', packageUMD], ['CJS', packageCJS], ['ESM', packageESM]];
 const functions = ['injectPayload', 'injectScript', 'renderScript', 'resolveEnv'];
 
-describe('exports correctly', () => {
-    test.each(functions)('%p', func => {
-        expect(indexPackage[func]).toBeFunction();
-    });
-    test.each(functions)('%p', func => {
-        expect(distPackage[func]).toBeFunction();
+describe('package.json has correct outputs', () => {
+    expect(packageJSON).toMatchObject({
+        main: 'dist/index.cjs.js',
+        module: 'dist/index.esm.js',
+        browser: 'dist/index.umd.js',
     });
 });
 
-describe('package.json has correct exports', () => {
-    expect(packageJSON).toMatchObject({
-        main: 'src/index.js',
-        module: 'dist/index.js',
-        browser: 'dist/index.js',
+describe('exports correctly', () => {
+    describe.each(packages)('package type=%p', (label, __package__) => {
+        test.each(functions)('function name=%p', funcName => {
+            expect(__package__).toHaveProperty(funcName, expect.any(Function));
+        });
     });
 });

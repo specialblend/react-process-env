@@ -1,7 +1,10 @@
-/* eslint-disable import/no-extraneous-dependencies */
 const path = require('path');
+const packageJSON = require('./package.json');
+
+const output = path.resolve(packageJSON.browser);
 
 module.exports = {
+    mode: 'production',
     entry: './src/index.js',
     target: 'web',
     module: {
@@ -16,7 +19,7 @@ module.exports = {
     },
     output: {
         libraryTarget: 'commonjs',
-        path: path.join(__dirname, 'dist'),
-        filename: 'index.js',
+        path: path.dirname(output),
+        filename: path.basename(output),
     },
 };
