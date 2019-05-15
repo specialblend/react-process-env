@@ -12,8 +12,8 @@ import {
 
 /**
  * Check payload before injecting
- * @param {Object} payload: payload
- * @return {*}: payload
+ * @param {object} payload payload
+ * @return {*} payload
  */
 export const checkPayload = payload => {
     assert(!isProcessEnv(payload), ERROR_INJECT_PROCESS_ENV);
@@ -23,17 +23,17 @@ export const checkPayload = payload => {
 
 /**
  * Render payload into `script` tag
- * @type {Function}
- * @param {Object} payload: payload
- * @return {String}: `script` tag
+ * @type {function}
+ * @param {object} payload payload
+ * @return {string} `script` tag
  */
 export const renderScript = R.compose(wrapScript, payload => `window.env=JSON.parse(atob('${payload}'))`, encodeData, checkPayload);
 
 /**
  * Inject rendered `script` tag into `head` of HTML body
- * @param {Object} payload: payload
- * @param {String} body: HTML body
- * @return {String}: HTML body with `script` tag
+ * @param {object} payload payload
+ * @param {string} body HTML body
+ * @return {string} HTML body with `script` tag
  */
 export const injectScript = (payload, body) => {
     checkPayload(payload);
@@ -45,9 +45,9 @@ export const injectScript = (payload, body) => {
 
 /**
  * Create express callback that injects script into resolved HTML body
- * @param {Object} payload: payload
- * @param {Function} resolver: async callback to resolve the HTML body
- * @return {function(*, *): (boolean | void)}: express callback
+ * @param {object} payload payload
+ * @param {function} resolver async callback to resolve the HTML body
+ * @return {function(*, *): (boolean | void)} express callback
  */
 export const injectPayload = (payload, resolver) => {
     checkPayload(payload);

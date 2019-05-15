@@ -4,51 +4,51 @@ export const prependString = R.flip(R.concat);
 
 /**
  * Encode payload into base64
- * @param {Object} payload: payload
- * @return {string}: base64 payload
+ * @param {object} payload payload
+ * @return {string} base64 payload
  */
 export const toBase64 = payload => Buffer.from(payload).toString('base64');
 
 /**
  * Decode payload from base64 to ascii
- * @param {Object} payload: payload
- * @return {string}: ascii payload
+ * @param {object} payload payload
+ * @return {string} ascii payload
  */
 export const fromBase64 = payload => Buffer.from(payload, 'base64').toString('ascii');
 
 /**
  * Stringify and encode payload into base64
- * @param {Object} payload: payload
- * @return {string}: encoded payload
+ * @param {object} payload payload
+ * @return {string} encoded payload
  */
 export const encodeData = payload => toBase64(JSON.stringify(payload));
 
 /**
  * Decode and parse payload from base64
- * @param {Object} payload: payload
- * @return {string}: decoded payload
+ * @param {object} payload payload
+ * @return {string} decoded payload
  */
 export const decodeData = payload => JSON.parse(fromBase64(payload));
 
 /**
  * Returns true is payload is process.env
- * @param {Object} payload: payload
- * @return {boolean}: check
+ * @param {object} payload payload
+ * @return {boolean} check
  */
 export const isProcessEnv = payload => payload === process.env;
 
 /**
  * Returns true if object has non-string values
- * @type {Function}
- * @param {Object} payload: payload
+ * @type {function}
+ * @param {object} payload payload
  */
 export const hasNonScalarValues = R.complement(R.compose(R.all(R.is(String)), R.valuesIn));
 
 
 /**
  * Wraps body with `script` tag
- * @type {Function}
- * @param {body}: body
+ * @type {function}
+ * @param {body} body
  */
 export const wrapScript = R.compose(R.concat('<script>'), prependString('</script>'));
 
