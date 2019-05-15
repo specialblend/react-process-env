@@ -11,7 +11,7 @@
     "build:dev": "webpack --mode=development && rollup -c -w",
     "check": "npm run build && npm run test && npm run coverage && npm run lint",
     "pretest": "npm run build",
-    "prepublishOnly": "npm run build",
+    "prepublishOnly": "npm run build && npm run docs",
     "docs": "npm run build && cat support/README.md > README.md && jsdoc2md dist/index.esm.js >> README.md"
   },
   "files": [
