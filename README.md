@@ -12,8 +12,16 @@ Render an object (e.g. a subset of `process.env`) as an html `head` `<script>` t
 const fs = require('fs')
 const path = require('path')
 const express = require('express')
-const renderEnvrionment = require('react-process-env')
+const memoize = require('lodash.memoize')
+const injectPayload = require('react-process-env')
+
+const resolveIndex = memoize(() => fs.readFile(path.join(__dirname, 'index.html')))
+
+const payload = {
+    FOO: process.env.FOO,
+    BAR: process.env.BAR,
+}
 
 const app = express()
-app.use('/', renderEnvrionment)
+app.use(injectPayload(payload, resolveIndex))
 ```

@@ -1,15 +1,14 @@
-import interceptor from 'express-interceptor';
 import { renderPage } from './common';
 
-export default payload => interceptor(
-    (request, response) => ({
-        // Only intercept HTML files
-        isInterceptable() {
-            return /text\/html/.test(response.get('Content-Type'));
-        },
-        // Inject <script> tag
-        intercept(body, send) {
-            send(renderPage(payload, body));
-        },
-    })
-);
+export default (payload, resolver = null) =>
+    async(req, res, next) => {
+        if (resolver) {
+            const body = await resolver();
+            res.send(renderPage(payload, body));
+            return;
+        }
+        if (res.body) {
+            res.body = renderPage(payload, res.body);
+        }
+        next();
+    };
