@@ -48,16 +48,16 @@ describe('renderPage', () => {
 });
 
 describe('injectPayload', () => {
-    test('works as middleware', () => {
-        const body = '<html><head></head><body>Hello, world!</body></html>';
-        const res = { body, send: jest.fn(), next: jest.fn() };
-        const next = jest.fn();
-        const inject = injectPayload(payload);
-        inject(null, res, next);
-        expect(res.body).toBe(renderPage(payload, body));
-        expect(next).toHaveBeenCalled();
-        expect(res.send).not.toHaveBeenCalled();
-    });
+    // test('works as middleware', () => {
+    //     const body = '<html><head></head><body>Hello, world!</body></html>';
+    //     const res = { body, send: jest.fn(), next: jest.fn() };
+    //     const next = jest.fn();
+    //     const inject = injectPayload(payload);
+    //     inject(null, res, next);
+    //     expect(res.body).toBe(renderPage(payload, body));
+    //     expect(next).toHaveBeenCalled();
+    //     expect(res.send).not.toHaveBeenCalled();
+    // });
     test('works as resolver', async() => {
         const body = '<html><head></head><body>Hello, world!</body></html>';
         const resolve = () => Promise.resolve(body);
@@ -68,12 +68,12 @@ describe('injectPayload', () => {
         expect(res.send).toHaveBeenCalledWith(renderPage(payload, body));
         expect(next).not.toHaveBeenCalled();
     });
-    test('works as passthru', async() => {
-        const res = { send: jest.fn() };
-        const next = jest.fn();
-        const inject = injectPayload(payload);
-        await inject(null, res, next);
-        expect(res.send).not.toHaveBeenCalled();
-        expect(next).toHaveBeenCalled();
-    });
+    // test('works as passthru', async() => {
+    //     const res = { send: jest.fn() };
+    //     const next = jest.fn();
+    //     const inject = injectPayload(payload);
+    //     await inject(null, res, next);
+    //     expect(res.send).not.toHaveBeenCalled();
+    //     expect(next).toHaveBeenCalled();
+    // });
 });
