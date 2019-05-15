@@ -92,7 +92,7 @@ It's a security risk. If you pass `process.env` directly, it will throw an asser
 <dd><p>Returns true is payload is process.env</p>
 </dd>
 <dt><a href="#checkPayload">checkPayload(payload:)</a> ⇒ <code>*</code></dt>
-<dd><p>Assert payload !== process.env</p>
+<dd><p>Check payload before injecting</p>
 </dd>
 <dt><a href="#injectScript">injectScript(payload:, body:)</a> ⇒ <code>String</code></dt>
 <dd><p>Inject rendered <code>script</code> tag into <code>head</code> of HTML body</p>
@@ -190,7 +190,7 @@ Returns true is payload is process.env
 <a name="checkPayload"></a>
 
 ## checkPayload(payload:) ⇒ <code>\*</code>
-Assert payload !== process.env
+Check payload before injecting
 
 **Kind**: global function  
 **Returns**: <code>\*</code> - : payload  
