@@ -31,11 +31,11 @@ export const renderScript = R.compose(wrapScript, payload => `window.env=JSON.pa
 
 /**
  * Inject rendered script tag into <head> of HTML body
- * @param {String} body: HTML body
  * @param {Object} payload: payload
+ * @param {String} body: HTML body
  * @return {String}: HTML body with <script> tag
  */
-export const injectScript = (body, payload) => {
+export const injectScript = (payload, body) => {
     checkPayload(payload);
     const script = renderScript(payload);
     const $ = cheerio.load(body);
@@ -53,6 +53,6 @@ export const injectPayload = (payload, resolver) => {
     checkPayload(payload);
     return async(req, res) => {
         const body = await resolver();
-        return res.send(injectScript(body, payload));
+        return res.send(injectScript(payload, body));
     };
 };

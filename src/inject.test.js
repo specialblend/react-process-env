@@ -127,7 +127,7 @@ describe('renderScript', () => {
 
 describe('injectScript', () => {
     const body = '<html><head></head><body>Hello, world!</body></html>';
-    const page = injectScript(body, payload);
+    const page = injectScript(payload, body);
     test('returns string', () => {
         expect(page).toBeString();
     });
@@ -138,7 +138,7 @@ describe('injectScript', () => {
         test('when payload is process.env', () => {
             expect.assertions(1);
             try {
-                injectScript(body, process.env);
+                injectScript(process.env, body);
             } catch (err) {
                 expect(err.message).toMatch(ERROR_INJECT_PROCESS_ENV);
             }
@@ -154,10 +154,10 @@ describe('injectScript', () => {
                 },
             };
             try {
-                injectScript(body, {
+                injectScript({
                     ...payload,
                     ...nonScalarPayload,
-                });
+                }, body);
             } catch (err) {
                 expect(err.message).toMatch(ERROR_INJECT_NON_SCALAR_PAYLOAD);
             }
@@ -168,7 +168,7 @@ describe('injectScript', () => {
 describe('injectPayload', () => {
     test('works as expected', async() => {
         const body = '<html><head></head><body>Hello, world!</body></html>';
-        const page = injectScript(body, payload);
+        const page = injectScript(payload, body);
         const resolve = R.always(Promise.resolve(body));
         const res = { send: jest.fn() };
         const next = jest.fn();
