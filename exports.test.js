@@ -15,7 +15,7 @@ describe('exports correctly', () => {
 
 describe('package.json has correct exports', () => {
     expect(packageJSON).toMatchObject({
-        main: 'index.js',
+        main: 'src/index.js',
         module: 'dist/index.js',
         browser: 'dist/index.js',
     });
