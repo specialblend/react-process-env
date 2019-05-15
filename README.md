@@ -74,7 +74,7 @@ It's a security risk. If you pass `process.env` directly, it will throw an asser
 <dt><a href="#ERROR_INJECT_NON_SCALAR_PAYLOAD">ERROR_INJECT_NON_SCALAR_PAYLOAD</a> : <code>string</code></dt>
 <dd><p>Assertion error thrown when passing a non-scalar value into any of the inject methods</p>
 </dd>
-<dt><a href="#renderScript">renderScript</a> ⇒ <code>String</code></dt>
+<dt><a href="#renderScript">renderScript</a> ⇒ <code>string</code></dt>
 <dd><p>Render payload into <code>script</code> tag</p>
 </dd>
 </dl>
@@ -82,25 +82,25 @@ It's a security risk. If you pass `process.env` directly, it will throw an asser
 ## Functions
 
 <dl>
-<dt><a href="#toBase64">toBase64(payload:)</a> ⇒ <code>string</code></dt>
+<dt><a href="#toBase64">toBase64(payload)</a> ⇒ <code>string</code></dt>
 <dd><p>Encode payload into base64</p>
 </dd>
-<dt><a href="#encodeData">encodeData(payload:)</a> ⇒ <code>string</code></dt>
+<dt><a href="#encodeData">encodeData(payload)</a> ⇒ <code>string</code></dt>
 <dd><p>Stringify and encode payload into base64</p>
 </dd>
-<dt><a href="#isProcessEnv">isProcessEnv(payload:)</a> ⇒ <code>boolean</code></dt>
+<dt><a href="#isProcessEnv">isProcessEnv(payload)</a> ⇒ <code>boolean</code></dt>
 <dd><p>Returns true is payload is process.env</p>
 </dd>
-<dt><a href="#checkPayload">checkPayload(payload:)</a> ⇒ <code>*</code></dt>
+<dt><a href="#checkPayload">checkPayload(payload)</a> ⇒ <code>*</code></dt>
 <dd><p>Check payload before injecting</p>
 </dd>
-<dt><a href="#injectScript">injectScript(payload:, body:)</a> ⇒ <code>String</code></dt>
+<dt><a href="#injectScript">injectScript(payload, body)</a> ⇒ <code>string</code></dt>
 <dd><p>Inject rendered <code>script</code> tag into <code>head</code> of HTML body</p>
 </dd>
-<dt><a href="#injectPayload">injectPayload(payload:, resolver:)</a> ⇒ <code>function</code></dt>
+<dt><a href="#injectPayload">injectPayload(payload, resolver)</a> ⇒ <code>function</code></dt>
 <dd><p>Create express callback that injects script into resolved HTML body</p>
 </dd>
-<dt><a href="#resolveEnv">resolveEnv(prop:)</a> ⇒ <code>*</code></dt>
+<dt><a href="#resolveEnv">resolveEnv(prop)</a> ⇒ <code>*</code></dt>
 <dd><p>Resolve property from <code>window.env</code> (<code>express</code>/production), or fallback to <code>process.env</code> (<code>react-scripts</code>/development)</p>
 </dd>
 </dl>
@@ -114,7 +114,7 @@ Returns true if object has non-string values
 
 | Param | Type | Description |
 | --- | --- | --- |
-| payload: | <code>Object</code> | payload |
+| payload | <code>object</code> | payload |
 
 <a name="wrapScript"></a>
 
@@ -123,9 +123,9 @@ Wraps body with `script` tag
 
 **Kind**: global constant  
 
-| Param | Type | Description |
-| --- | --- | --- |
-| : | <code>body</code> | body |
+| Param | Type |
+| --- | --- |
+| body | <code>body</code> | 
 
 <a name="ERROR_INJECT_PROCESS_ENV"></a>
 
@@ -141,99 +141,99 @@ Assertion error thrown when passing a non-scalar value into any of the inject me
 **Kind**: global constant  
 <a name="renderScript"></a>
 
-## renderScript ⇒ <code>String</code>
+## renderScript ⇒ <code>string</code>
 Render payload into `script` tag
 
 **Kind**: global constant  
-**Returns**: <code>String</code> - : `script` tag  
+**Returns**: <code>string</code> - `script` tag  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| payload: | <code>Object</code> | payload |
+| payload | <code>object</code> | payload |
 
 <a name="toBase64"></a>
 
-## toBase64(payload:) ⇒ <code>string</code>
+## toBase64(payload) ⇒ <code>string</code>
 Encode payload into base64
 
 **Kind**: global function  
-**Returns**: <code>string</code> - : base64 payload  
+**Returns**: <code>string</code> - base64 payload  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| payload: | <code>Object</code> | payload |
+| payload | <code>object</code> | payload |
 
 <a name="encodeData"></a>
 
-## encodeData(payload:) ⇒ <code>string</code>
+## encodeData(payload) ⇒ <code>string</code>
 Stringify and encode payload into base64
 
 **Kind**: global function  
-**Returns**: <code>string</code> - : encoded payload  
+**Returns**: <code>string</code> - encoded payload  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| payload: | <code>Object</code> | payload |
+| payload | <code>object</code> | payload |
 
 <a name="isProcessEnv"></a>
 
-## isProcessEnv(payload:) ⇒ <code>boolean</code>
+## isProcessEnv(payload) ⇒ <code>boolean</code>
 Returns true is payload is process.env
 
 **Kind**: global function  
-**Returns**: <code>boolean</code> - : check  
+**Returns**: <code>boolean</code> - check  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| payload: | <code>Object</code> | payload |
+| payload | <code>object</code> | payload |
 
 <a name="checkPayload"></a>
 
-## checkPayload(payload:) ⇒ <code>\*</code>
+## checkPayload(payload) ⇒ <code>\*</code>
 Check payload before injecting
 
 **Kind**: global function  
-**Returns**: <code>\*</code> - : payload  
+**Returns**: <code>\*</code> - payload  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| payload: | <code>Object</code> | payload |
+| payload | <code>object</code> | payload |
 
 <a name="injectScript"></a>
 
-## injectScript(payload:, body:) ⇒ <code>String</code>
+## injectScript(payload, body) ⇒ <code>string</code>
 Inject rendered `script` tag into `head` of HTML body
 
 **Kind**: global function  
-**Returns**: <code>String</code> - : HTML body with `script` tag  
+**Returns**: <code>string</code> - HTML body with `script` tag  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| payload: | <code>Object</code> | payload |
-| body: | <code>String</code> | HTML body |
+| payload | <code>object</code> | payload |
+| body | <code>string</code> | HTML body |
 
 <a name="injectPayload"></a>
 
-## injectPayload(payload:, resolver:) ⇒ <code>function</code>
+## injectPayload(payload, resolver) ⇒ <code>function</code>
 Create express callback that injects script into resolved HTML body
 
 **Kind**: global function  
-**Returns**: <code>function</code> - : express callback  
+**Returns**: <code>function</code> - express callback  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| payload: | <code>Object</code> | payload |
-| resolver: | <code>function</code> | async callback to resolve the HTML body |
+| payload | <code>object</code> | payload |
+| resolver | <code>function</code> | async callback to resolve the HTML body |
 
 <a name="resolveEnv"></a>
 
-## resolveEnv(prop:) ⇒ <code>\*</code>
+## resolveEnv(prop) ⇒ <code>\*</code>
 Resolve property from `window.env` (`express`/production), or fallback to `process.env` (`react-scripts`/development)
 
 **Kind**: global function  
-**Returns**: <code>\*</code> - : value of the resolved property  
+**Returns**: <code>\*</code> - value of the resolved property  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| prop: | <code>String</code> | name of property to resolve |
+| prop | <code>string</code> | name of property to resolve |
 
