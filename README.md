@@ -44,3 +44,14 @@ export default () => {
 }
 
 ```
+
+### security considerations
+
+#### :warning: Do not pass `process.env` directly as payload
+
+It's a security risk. If you pass `process.env` directly, it will throw an assertion error.
+
+#### Cross-site scripting (XSS) attack
+- Scalar values only - anything else will throw an assertion error.
+- Non-scalar keys will automatically be cast to strings.
+- The payload will be encoded into base64 before injecting into page to prevent malicious payloads from executing.
