@@ -62,10 +62,10 @@ It's a security risk. If you pass `process.env` directly, it will throw an asser
 ## Constants
 
 <dl>
-<dt><a href="#hasNonScalarValues">hasNonScalarValues</a></dt>
+<dt><a href="#hasNonScalarValues">hasNonScalarValues</a> : <code>function</code></dt>
 <dd><p>Returns true if object has non-string values</p>
 </dd>
-<dt><a href="#wrapScript">wrapScript</a></dt>
+<dt><a href="#wrapScript">wrapScript</a> : <code>function</code></dt>
 <dd><p>Wraps body with <code>script</code> tag</p>
 </dd>
 <dt><a href="#ERROR_INJECT_PROCESS_ENV">ERROR_INJECT_PROCESS_ENV</a> : <code>string</code></dt>
@@ -107,16 +107,26 @@ It's a security risk. If you pass `process.env` directly, it will throw an asser
 
 <a name="hasNonScalarValues"></a>
 
-## hasNonScalarValues
+## hasNonScalarValues : <code>function</code>
 Returns true if object has non-string values
 
 **Kind**: global constant  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| payload: | <code>Object</code> | payload |
+
 <a name="wrapScript"></a>
 
-## wrapScript
+## wrapScript : <code>function</code>
 Wraps body with `script` tag
 
 **Kind**: global constant  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| : | <code>body</code> | body |
+
 <a name="ERROR_INJECT_PROCESS_ENV"></a>
 
 ## ERROR\_INJECT\_PROCESS\_ENV : <code>string</code>
