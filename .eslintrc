@@ -1,3 +1,6 @@
 {
-  "extends": "@specialblend/eslint-config"
+  "extends": "@specialblend/eslint-config",
+  "rules": {
+    "no-process-env": "off"
+  }
 }

@@ -49,6 +49,7 @@
     "rollup": "^1.11.3"
   },
   "dependencies": {
-    "cheerio": "^1.0.0-rc.3"
+    "cheerio": "^1.0.0-rc.3",
+    "ramda": "^0.26.1"
   }
 }

@@ -1,9 +1,13 @@
-import moduleES from './dist/index.esm';
-import moduleCJS from './dist/index.cjs';
+import * as moduleES from './dist/index.esm';
+import * as moduleCJS from './dist/index.cjs';
 const moduleUMD = require('./dist/index.umd');
 
-test('exports are importable', () => {
-    expect(moduleUMD).toBeFunction();
-    expect(moduleES).toBeFunction();
-    expect(moduleCJS).toBeFunction();
+const functions = ['inject', 'injectScript', 'renderScript', 'resolve'];
+
+describe('exports are importable', () => {
+    test.each(functions)('%p', func => {
+        expect(moduleUMD[func]).toBeFunction();
+        expect(moduleES[func]).toBeFunction();
+        expect(moduleCJS[func]).toBeFunction();
+    });
 });

@@ -1,5 +1,5 @@
-import injectPayload from './main';
-import { fromBase64, encodeData, decodeData, renderPage, renderScript } from './common';
+import { fromBase64, encodeData, decodeData } from './common';
+import { inject, injectScript, renderScript } from './inject';
 import xssPayloads from '../__mocks__/xss-payloads';
 
 const safePayloads = {
@@ -36,9 +36,9 @@ describe('renderScript', () => {
     });
 });
 
-describe('renderPage', () => {
+describe('injectScript', () => {
     const body = '<html><head></head><body>Hello, world!</body></html>';
-    const page = renderPage(payload, body);
+    const page = injectScript(body, payload);
     test('returns string', () => {
         expect(page).toBeString();
     });
@@ -47,33 +47,16 @@ describe('renderPage', () => {
     });
 });
 
-describe('injectPayload', () => {
-    // test('works as middleware', () => {
-    //     const body = '<html><head></head><body>Hello, world!</body></html>';
-    //     const res = { body, send: jest.fn(), next: jest.fn() };
-    //     const next = jest.fn();
-    //     const inject = injectPayload(payload);
-    //     inject(null, res, next);
-    //     expect(res.body).toBe(renderPage(payload, body));
-    //     expect(next).toHaveBeenCalled();
-    //     expect(res.send).not.toHaveBeenCalled();
-    // });
-    test('works as resolver', async() => {
+describe('inject', () => {
+    test('works as expected', async() => {
         const body = '<html><head></head><body>Hello, world!</body></html>';
+        const page = injectScript(body, payload);
         const resolve = () => Promise.resolve(body);
         const res = { send: jest.fn() };
         const next = jest.fn();
-        const inject = injectPayload(payload, resolve);
-        await inject(null, res, next);
-        expect(res.send).toHaveBeenCalledWith(renderPage(payload, body));
+        const injectEnv = inject(payload, resolve);
+        await injectEnv(null, res, next);
+        expect(res.send).toHaveBeenCalledWith(page);
         expect(next).not.toHaveBeenCalled();
     });
-    // test('works as passthru', async() => {
-    //     const res = { send: jest.fn() };
-    //     const next = jest.fn();
-    //     const inject = injectPayload(payload);
-    //     await inject(null, res, next);
-    //     expect(res.send).not.toHaveBeenCalled();
-    //     expect(next).toHaveBeenCalled();
-    // });
 });
