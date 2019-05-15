@@ -1,9 +1,13 @@
 import * as R from 'ramda';
-import { fromBase64, encodeData, decodeData } from './common';
 import {
-    checkPayload,
+    fromBase64,
+    encodeData,
+    decodeData,
     ERROR_INJECT_NON_SCALAR_PAYLOAD,
     ERROR_INJECT_PROCESS_ENV,
+} from './common';
+import {
+    checkPayload,
     injectPayload,
     injectScript,
     renderScript,

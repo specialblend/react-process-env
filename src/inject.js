@@ -1,15 +1,14 @@
 import * as R from 'ramda';
 import cheerio from 'cheerio';
 import assert from 'assert';
-import { encodeData, hasNonScalarValues, isProcessEnv, prependString } from './common';
-
-export const ERROR_INJECT_PROCESS_ENV = '!! DO NOT DIRECTLY PASS `process.env` -- THIS IS A SECURITY RISK !!';
-export const ERROR_INJECT_NON_SCALAR_PAYLOAD = 'Non-scalar value(s) found in payload';
-
-/**
- * Wraps body with <script></script>
- */
-export const wrapScript = R.compose(R.concat('<script>'), prependString('</script>'));
+import {
+    encodeData,
+    ERROR_INJECT_NON_SCALAR_PAYLOAD,
+    ERROR_INJECT_PROCESS_ENV,
+    hasNonScalarValues,
+    isProcessEnv,
+    wrapScript,
+} from './common';
 
 /**
  * Assert payload !== process.env
@@ -23,17 +22,17 @@ export const checkPayload = payload => {
 };
 
 /**
- * Render payload into <script> tag
+ * Render payload into `script` tag
  * @param {Object} payload: payload
- * @return {String}: <script> tag
+ * @return {String}: `script` tag
  */
 export const renderScript = R.compose(wrapScript, payload => `window.env=JSON.parse(atob('${payload}'))`, encodeData, checkPayload);
 
 /**
- * Inject rendered script tag into <head> of HTML body
+ * Inject rendered `script` tag into `head` of HTML body
  * @param {Object} payload: payload
  * @param {String} body: HTML body
- * @return {String}: HTML body with <script> tag
+ * @return {String}: HTML body with `script` tag
  */
 export const injectScript = (payload, body) => {
     checkPayload(payload);

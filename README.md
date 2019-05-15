@@ -66,10 +66,16 @@ It's a security risk. If you pass `process.env` directly, it will throw an asser
 <dd><p>Returns true if object has non-string values</p>
 </dd>
 <dt><a href="#wrapScript">wrapScript</a></dt>
-<dd><p>Wraps body with <script></script></p>
+<dd><p>Wraps body with <code>script</code> tag</p>
+</dd>
+<dt><a href="#ERROR_INJECT_PROCESS_ENV">ERROR_INJECT_PROCESS_ENV</a> : <code>string</code></dt>
+<dd><p>Assertion error thrown when passing <code>process.env</code> directly into any of the inject methods</p>
+</dd>
+<dt><a href="#ERROR_INJECT_NON_SCALAR_PAYLOAD">ERROR_INJECT_NON_SCALAR_PAYLOAD</a> : <code>string</code></dt>
+<dd><p>Assertion error thrown when passing a non-scalar value into any of the inject methods</p>
 </dd>
 <dt><a href="#renderScript">renderScript</a> ⇒ <code>String</code></dt>
-<dd><p>Render payload into <script> tag</p>
+<dd><p>Render payload into <code>script</code> tag</p>
 </dd>
 </dl>
 
@@ -89,10 +95,13 @@ It's a security risk. If you pass `process.env` directly, it will throw an asser
 <dd><p>Assert payload !== process.env</p>
 </dd>
 <dt><a href="#injectScript">injectScript(payload:, body:)</a> ⇒ <code>String</code></dt>
-<dd><p>Inject rendered script tag into <head> of HTML body</p>
+<dd><p>Inject rendered <code>script</code> tag into <code>head</code> of HTML body</p>
 </dd>
 <dt><a href="#injectPayload">injectPayload(payload:, resolver:)</a> ⇒ <code>function</code></dt>
 <dd><p>Create express callback that injects script into resolved HTML body</p>
+</dd>
+<dt><a href="#resolveEnv">resolveEnv(prop:)</a> ⇒ <code>*</code></dt>
+<dd><p>Resolve property from <code>window.env</code> (<code>express</code>/production), or fallback to <code>process.env</code> (<code>react-scripts</code>/development)</p>
 </dd>
 </dl>
 
@@ -105,16 +114,28 @@ Returns true if object has non-string values
 <a name="wrapScript"></a>
 
 ## wrapScript
-Wraps body with <script></script>
+Wraps body with `script` tag
+
+**Kind**: global constant  
+<a name="ERROR_INJECT_PROCESS_ENV"></a>
+
+## ERROR\_INJECT\_PROCESS\_ENV : <code>string</code>
+Assertion error thrown when passing `process.env` directly into any of the inject methods
+
+**Kind**: global constant  
+<a name="ERROR_INJECT_NON_SCALAR_PAYLOAD"></a>
+
+## ERROR\_INJECT\_NON\_SCALAR\_PAYLOAD : <code>string</code>
+Assertion error thrown when passing a non-scalar value into any of the inject methods
 
 **Kind**: global constant  
 <a name="renderScript"></a>
 
 ## renderScript ⇒ <code>String</code>
-Render payload into <script> tag
+Render payload into `script` tag
 
 **Kind**: global constant  
-**Returns**: <code>String</code> - : <script> tag  
+**Returns**: <code>String</code> - : `script` tag  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -171,10 +192,10 @@ Assert payload !== process.env
 <a name="injectScript"></a>
 
 ## injectScript(payload:, body:) ⇒ <code>String</code>
-Inject rendered script tag into <head> of HTML body
+Inject rendered `script` tag into `head` of HTML body
 
 **Kind**: global function  
-**Returns**: <code>String</code> - : HTML body with <script> tag  
+**Returns**: <code>String</code> - : HTML body with `script` tag  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -193,4 +214,16 @@ Create express callback that injects script into resolved HTML body
 | --- | --- | --- |
 | payload: | <code>Object</code> | payload |
 | resolver: | <code>function</code> | async callback to resolve the HTML body |
+
+<a name="resolveEnv"></a>
+
+## resolveEnv(prop:) ⇒ <code>\*</code>
+Resolve property from `window.env` (`express`/production), or fallback to `process.env` (`react-scripts`/development)
+
+**Kind**: global function  
+**Returns**: <code>\*</code> - : value of the resolved property  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| prop: | <code>String</code> | name of property to resolve |
 

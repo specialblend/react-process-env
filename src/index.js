@@ -1,2 +1,2 @@
-export { injectPayload, injectScript, renderScript } from './inject';
-export { resolveEnv } from './resolve';
+export * from './inject';
+export * from './resolve';

@@ -11,7 +11,9 @@
     "build:dev": "webpack --mode=development && rollup -c -w",
     "check": "npm run build && npm run test && npm run coverage && npm run lint",
     "pretest": "npm run build",
-    "docs": "./scripts/docs.sh",
+    "docs:generate": "cat support/README.md > README.md && jsdoc2md dist/index.esm.js >> README.md",
+    "docs:commit": "git add README.md support && git diff-index --quiet HEAD || git commit -m \"update documentation\"",
+    "docs": "npm run docs:generate && npm run docs:commit",
     "prepublishOnly": "npm run build && npm run docs"
   },
   "files": [
