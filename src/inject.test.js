@@ -21,6 +21,13 @@ const payload = {
     ...xssPayloads,
 };
 
+beforeAll(() => {
+    process.env.TEST_FOO_BAR = 'test_foo_bar';
+    process.env.TEST_FAZ_BAZ = 'test_faz_baz';
+    process.env.TEST_ALPHA_BRAVO = 'test_alpha_bravo';
+    process.env.TEST_CHARLIE_DELTA = 'test_charlie_delta';
+});
+
 describe('encode', () => {
     test('works as expected', () => {
         const encoded = encodeData(payload);
@@ -31,12 +38,6 @@ describe('encode', () => {
 });
 
 describe('checkPayload', () => {
-    beforeAll(() => {
-        process.env.TEST_FOO_BAR = 'test_foo_bar';
-        process.env.TEST_FAZ_BAZ = 'test_faz_baz';
-        process.env.TEST_ALPHA_BRAVO = 'test_alpha_bravo';
-        process.env.TEST_CHARLIE_DELTA = 'test_charlie_delta';
-    });
     describe('returns payload', () => {
         test('on normal object', () => {
             expect(checkPayload(payload)).toBe(payload);
@@ -93,6 +94,35 @@ describe('renderScript', () => {
         const parsed = decodeData(data);
         expect(parsed).toMatchObject(payload);
     });
+    describe('throws expected assertion', () => {
+        test('when payload is process.env', () => {
+            expect.assertions(1);
+            try {
+                renderScript(process.env);
+            } catch (err) {
+                expect(err.message).toMatch(ERROR_INJECT_PROCESS_ENV);
+            }
+        });
+        test('when payload has non-scalar values', () => {
+            expect.assertions(1);
+            const nonScalarPayload = {
+                testFunc: () => {
+                    console.alert('kiumjnyhtbgrvfecdbnm,./oops!wertvybuniop');
+                },
+                TEST_FUNC() {
+                    console.alert('kiumjnyhtbgrvfecdbnm,./oops!wertvybuniop');
+                },
+            };
+            try {
+                renderScript({
+                    ...payload,
+                    ...nonScalarPayload,
+                });
+            } catch (err) {
+                expect(err.message).toMatch(ERROR_INJECT_NON_SCALAR_PAYLOAD);
+            }
+        });
+    });
 });
 
 describe('injectScript', () => {
@@ -104,18 +134,76 @@ describe('injectScript', () => {
     test('works as expected', () => {
         expect(page).toBe(`<html><head>${renderScript(payload)}</head><body>Hello, world!</body></html>`);
     });
+    describe('throws expected assertion', () => {
+        test('when payload is process.env', () => {
+            expect.assertions(1);
+            try {
+                injectScript(body, process.env);
+            } catch (err) {
+                expect(err.message).toMatch(ERROR_INJECT_PROCESS_ENV);
+            }
+        });
+        test('when payload has non-scalar values', () => {
+            expect.assertions(1);
+            const nonScalarPayload = {
+                testFunc: () => {
+                    console.alert('kiumjnyhtbgrvfecdbnm,./oops!wertvybuniop');
+                },
+                TEST_FUNC() {
+                    console.alert('kiumjnyhtbgrvfecdbnm,./oops!wertvybuniop');
+                },
+            };
+            try {
+                injectScript(body, {
+                    ...payload,
+                    ...nonScalarPayload,
+                });
+            } catch (err) {
+                expect(err.message).toMatch(ERROR_INJECT_NON_SCALAR_PAYLOAD);
+            }
+        });
+    });
 });
 
 describe('injectPayload', () => {
     test('works as expected', async() => {
         const body = '<html><head></head><body>Hello, world!</body></html>';
         const page = injectScript(body, payload);
-        const resolve = () => Promise.resolve(body);
+        const resolve = R.always(Promise.resolve(body));
         const res = { send: jest.fn() };
         const next = jest.fn();
         const injectEnv = injectPayload(payload, resolve);
         await injectEnv(null, res, next);
         expect(res.send).toHaveBeenCalledWith(page);
         expect(next).not.toHaveBeenCalled();
+    });
+    describe('throws expected assertion', () => {
+        test('when payload is process.env', () => {
+            expect.assertions(1);
+            try {
+                injectPayload(process.env);
+            } catch (err) {
+                expect(err.message).toMatch(ERROR_INJECT_PROCESS_ENV);
+            }
+        });
+        test('when payload has non-scalar values', () => {
+            expect.assertions(1);
+            const nonScalarPayload = {
+                testFunc: () => {
+                    console.alert('kiumjnyhtbgrvfecdbnm,./oops!wertvybuniop');
+                },
+                TEST_FUNC() {
+                    console.alert('kiumjnyhtbgrvfecdbnm,./oops!wertvybuniop');
+                },
+            };
+            try {
+                injectPayload({
+                    ...payload,
+                    ...nonScalarPayload,
+                });
+            } catch (err) {
+                expect(err.message).toMatch(ERROR_INJECT_NON_SCALAR_PAYLOAD);
+            }
+        });
     });
 });

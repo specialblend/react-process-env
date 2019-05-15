@@ -1,5 +1,7 @@
 import * as R from 'ramda';
 
+export const prependString = R.flip(R.concat);
+
 /**
  * Encode payload into base64
  * @param {Object} payload: payload
