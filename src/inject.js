@@ -11,7 +11,7 @@ import {
 } from './common';
 
 /**
- * Assert payload !== process.env
+ * Check payload before injecting
  * @param {Object} payload: payload
  * @return {*}: payload
  */
