@@ -47,6 +47,10 @@ export default () => {
 
 ### security considerations
 
+#### :warning: Do not pass any secure data in payload
+
+The injected payload will be public in `index.html`, so don't pass anything you don't want to world to see.
+
 #### :warning: Do not pass `process.env` directly as payload
 
 It's a security risk. If you pass `process.env` directly, it will throw an assertion error.
