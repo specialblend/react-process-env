@@ -34,3 +34,8 @@ export const decodeData = payload => JSON.parse(fromBase64(payload));
  * @return {boolean}: check
  */
 export const isProcessEnv = payload => payload === process.env;
+
+/**
+ * Returns true if object has non-string values
+ */
+export const hasNonScalarValues = R.complement(R.compose(R.all(R.is(String)), R.valuesIn));

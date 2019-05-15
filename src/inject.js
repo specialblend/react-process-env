@@ -1,8 +1,9 @@
 import cheerio from 'cheerio';
 import assert from 'assert';
-import { encodeData, isProcessEnv } from './common';
+import { encodeData, hasNonScalarValues, isProcessEnv } from './common';
 
 export const ERROR_INJECT_PROCESS_ENV = '!! DO NOT DIRECTLY PASS `process.env` -- THIS IS A SECURITY RISK !!';
+export const ERROR_INJECT_NON_SCALAR_PAYLOAD = 'Non-scalar value(s) found in payload';
 
 /**
  * Assert payload !== process.env
@@ -11,6 +12,7 @@ export const ERROR_INJECT_PROCESS_ENV = '!! DO NOT DIRECTLY PASS `process.env` -
  */
 export const checkPayload = payload => {
     assert(!isProcessEnv(payload), ERROR_INJECT_PROCESS_ENV);
+    assert(!hasNonScalarValues(payload), ERROR_INJECT_NON_SCALAR_PAYLOAD);
     return payload;
 };
 

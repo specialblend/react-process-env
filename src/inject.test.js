@@ -1,6 +1,13 @@
 import * as R from 'ramda';
 import { fromBase64, encodeData, decodeData } from './common';
-import { checkPayload, ERROR_INJECT_PROCESS_ENV, injectPayload, injectScript, renderScript } from './inject';
+import {
+    checkPayload,
+    ERROR_INJECT_NON_SCALAR_PAYLOAD,
+    ERROR_INJECT_PROCESS_ENV,
+    injectPayload,
+    injectScript,
+    renderScript,
+} from './inject';
 import xssPayloads from '../__mocks__/xss-payloads';
 
 const safePayloads = {
@@ -50,6 +57,25 @@ describe('checkPayload', () => {
                 checkPayload(process.env);
             } catch (err) {
                 expect(err.message).toMatch(ERROR_INJECT_PROCESS_ENV);
+            }
+        });
+        test('when payload has non-scalar values', () => {
+            expect.assertions(1);
+            const nonScalarPayload = {
+                testFunc: () => {
+                    console.alert('kiumjnyhtbgrvfecdbnm,./oops!wertvybuniop');
+                },
+                TEST_FUNC() {
+                    console.alert('kiumjnyhtbgrvfecdbnm,./oops!wertvybuniop');
+                },
+            };
+            try {
+                checkPayload({
+                    ...payload,
+                    ...nonScalarPayload,
+                });
+            } catch (err) {
+                expect(err.message).toMatch(ERROR_INJECT_NON_SCALAR_PAYLOAD);
             }
         });
     });
