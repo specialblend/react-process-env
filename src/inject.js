@@ -23,6 +23,7 @@ export const checkPayload = payload => {
 
 /**
  * Render payload into `script` tag
+ * @type {Function}
  * @param {Object} payload: payload
  * @return {String}: `script` tag
  */
