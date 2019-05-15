@@ -1,5 +1,5 @@
 import { fromBase64, encodeData, decodeData } from './common';
-import { inject, injectScript, renderScript } from './inject';
+import { injectPayload, injectScript, renderScript } from './inject';
 import xssPayloads from '../__mocks__/xss-payloads';
 
 const safePayloads = {
@@ -47,14 +47,14 @@ describe('injectScript', () => {
     });
 });
 
-describe('inject', () => {
+describe('injectPayload', () => {
     test('works as expected', async() => {
         const body = '<html><head></head><body>Hello, world!</body></html>';
         const page = injectScript(body, payload);
         const resolve = () => Promise.resolve(body);
         const res = { send: jest.fn() };
         const next = jest.fn();
-        const injectEnv = inject(payload, resolve);
+        const injectEnv = injectPayload(payload, resolve);
         await injectEnv(null, res, next);
         expect(res.send).toHaveBeenCalledWith(page);
         expect(next).not.toHaveBeenCalled();

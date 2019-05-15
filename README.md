@@ -14,7 +14,7 @@ const fs = require('fs')
 const path = require('path')
 const express = require('express')
 const memoize = require('lodash.memoize')
-const { inject } = require('react-process-env')
+const { injectPayload } = require('react-process-env')
 
 const resolveIndex = memoize(() => fs.readFile(path.join(__dirname, 'index.html')))
 
@@ -24,16 +24,23 @@ const payload = {
 }
 
 const app = express()
-app.use(inject(payload, resolveIndex))
+const injectEnv = injectPayload(payload, resolveIndex)
+/**
+* Injects payload into `window.env` on `index.html`
+*/
+app.use('/', injectEnv)
 ```
 
 ```javascript
 // App.js
 import React from 'react'
-import { resolve } from 'react-process-env'
+import { resolveEnv } from 'react-process-env'
 
 export default () => {
-    const myFoo = resolve('FOO');
+    /**
+    * Reads window.env.FOO on `express` (production), or process.env.FOO on `react-scripts start` (development)
+    */
+    const myFoo = resolveEnv('FOO');
 }
 
 ```

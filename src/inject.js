@@ -10,7 +10,7 @@ export const injectScript = (body, payload) => {
     return $.html();
 };
 
-export const inject = (payload, resolver) =>
+export const injectPayload = (payload, resolver) =>
     async(req, res) => {
         const body = await resolver();
         return res.send(injectScript(body, payload));

@@ -3,7 +3,7 @@
 // const moduleUMD = require('./dist/index.umd');
 const pkg = require('./build/index');
 
-const functions = ['inject', 'injectScript', 'renderScript', 'resolve'];
+const functions = ['injectPayload', 'injectScript', 'renderScript', 'resolveEnv'];
 
 describe('exports are importable', () => {
     test.each(functions)('%p', func => {

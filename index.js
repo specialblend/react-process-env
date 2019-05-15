@@ -1,6 +1,6 @@
-const { inject, injectScript, renderScript, resolve } = require('./build/index');
+const { injectPayload, injectScript, renderScript, resolveEnv } = require('./build/index');
 
-module.exports.inject = inject;
+module.exports.injectPayload = injectPayload;
 module.exports.injectScript = injectScript;
 module.exports.renderScript = renderScript;
-module.exports.resolve = resolve;
+module.exports.resolveEnv = resolveEnv;
