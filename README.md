@@ -100,7 +100,7 @@ It's a security risk. If you pass `process.env` directly, it will throw an asser
 <dt><a href="#injectPayload">injectPayload(payload, resolver)</a> ⇒ <code>function</code></dt>
 <dd><p>Create express callback that injects script into resolved HTML body</p>
 </dd>
-<dt><a href="#resolveEnv">resolveEnv(prop)</a> ⇒ <code>*</code></dt>
+<dt><a href="#resolveEnv">resolveEnv(prop, context)</a> ⇒ <code>*</code></dt>
 <dd><p>Resolve property from <code>process.env</code> (<code>react-scripts</code>/development), or <code>window.env</code> (<code>express</code>/production)</p>
 </dd>
 </dl>
@@ -227,7 +227,7 @@ Create express callback that injects script into resolved HTML body
 
 <a name="resolveEnv"></a>
 
-## resolveEnv(prop) ⇒ <code>\*</code>
+## resolveEnv(prop, context) ⇒ <code>\*</code>
 Resolve property from `process.env` (`react-scripts`/development), or `window.env` (`express`/production)
 
 **Kind**: global function  
@@ -236,4 +236,5 @@ Resolve property from `process.env` (`react-scripts`/development), or `window.en
 | Param | Type | Description |
 | --- | --- | --- |
 | prop | <code>string</code> | name of property to resolve |
+| context | <code>object</code> | an object containing process and window globals |
 
