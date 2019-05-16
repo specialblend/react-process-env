@@ -1,5 +1,3 @@
-/* eslint-disable no-undefined */
-
 import * as R from 'ramda';
 import { resolveEnv } from './resolve';
 
@@ -44,7 +42,7 @@ const generalTests = R.map(({ name, expectation, context }) => [R.join(' - ', [n
         context: {
             window: {},
         },
-        expectation: undefined,
+        expectation: null,
     },
     {
         name: 'context.process is not set, context.window is set, context.window.env is set, context.window.env[prop] is set',
@@ -64,7 +62,7 @@ const generalTests = R.map(({ name, expectation, context }) => [R.join(' - ', [n
                 env: {},
             },
         },
-        expectation: undefined,
+        expectation: null,
     },
 ]);
 
@@ -72,12 +70,12 @@ const withContextTests = R.map(({ name, ...props }) => [name, props], [
     {
         name: 'context is empty object',
         context: {},
-        expectation: undefined,
+        expectation: null,
     },
     {
         name: 'context is null',
         context: {},
-        expectation: undefined,
+        expectation: null,
     },
     {
         name: 'context.process.env[prop] is empty, context.window.env[prop] is empty',
@@ -93,7 +91,7 @@ const withContextTests = R.map(({ name, ...props }) => [name, props], [
                 },
             },
         },
-        expectation: undefined,
+        expectation: null,
     },
 ]);
 
