@@ -1,33 +1,16 @@
 import * as R from 'ramda';
 import { resolveEnv } from './resolve';
 
-const window = global;
-window.env = {};
-
 const VALUE_PROCESS = 'VALUE_PROCESS';
 const VALUE_WINDOW = 'VALUE_WINDOW';
 const TEST_KEY = 'TEST_KEY';
 
 const generalTests = R.map(({ name, expectation, context }) => [R.join(' - ', [name, expectation]), { expectation, context }], [
     {
-        name: 'context.process.env[prop] is set',
-        context: {
-            process: {
-                env: {
-                    [TEST_KEY]: VALUE_PROCESS,
-                },
-            },
-        },
-        expectation: VALUE_PROCESS,
-    },
-
-    {
         name: 'context.process.env[prop] is empty, context.window.env[prop] is set',
         context: {
-            process: {
-                env: {
-                    [TEST_KEY]: null,
-                },
+            processEnv: {
+                [TEST_KEY]: '',
             },
             window: {
                 env: {
@@ -36,6 +19,15 @@ const generalTests = R.map(({ name, expectation, context }) => [R.join(' - ', [n
             },
         },
         expectation: VALUE_WINDOW,
+    },
+    {
+        name: 'context.process.env[prop] is set',
+        context: {
+            processEnv: {
+                [TEST_KEY]: VALUE_PROCESS,
+            },
+        },
+        expectation: VALUE_PROCESS,
     },
     {
         name: 'context.process is not set, context.window is set, context.window.env is not set',
@@ -80,10 +72,8 @@ const withContextTests = R.map(({ name, ...props }) => [name, props], [
     {
         name: 'context.process.env[prop] is empty, context.window.env[prop] is empty',
         context: {
-            process: {
-                env: {
-                    [TEST_KEY]: null,
-                },
+            processEnv: {
+                [TEST_KEY]: null,
             },
             window: {
                 env: {
@@ -102,13 +92,13 @@ const withContextTests = R.map(({ name, ...props }) => [name, props], [
  */
 const reflectSuperContext = context => {
     Reflect.deleteProperty(process.env, TEST_KEY);
-    Reflect.deleteProperty(window, 'env');
-    if (context.process) {
-        process.env = context.process.env;
+    Reflect.deleteProperty(global, 'env');
+    if (context.processEnv) {
+        Object.assign(process.env, context.processEnv);
     }
     if (context.window) {
         if (context.window.env) {
-            window.env = context.window.env;
+            global.env = context.window.env;
         }
     }
 };
@@ -116,10 +106,10 @@ const reflectSuperContext = context => {
 describe('resolves expected prop', () => {
     describe('when passing context', () => {
         test.each(generalTests)('%p - %p', (name, { expectation, context }) => {
-            expect(resolveEnv(TEST_KEY, context)).toBe(expectation);
+            expect(resolveEnv(TEST_KEY, context.window, context.processEnv)).toBe(expectation);
         });
         test.each(withContextTests)('%p - %p', (name, { expectation, context }) => {
-            expect(resolveEnv(TEST_KEY, context)).toBe(expectation);
+            expect(resolveEnv(TEST_KEY, context.window, context.processEnv)).toBe(expectation);
         });
     });
     describe('with supercontext', () => {
