@@ -2,7 +2,7 @@
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
   "browser": "dist/index.umd.js",
-  "version": "0.0.36",
+  "version": "0.0.37",
   "scripts": {
     "test": "jest",
     "coverage": "jest --coverage",
