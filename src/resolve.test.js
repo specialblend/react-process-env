@@ -106,10 +106,10 @@ const reflectSuperContext = context => {
 describe('resolves expected prop', () => {
     describe('when passing context', () => {
         test.each(generalTests)('%p - %p', (name, { expectation, context }) => {
-            expect(resolveEnv(TEST_KEY, context.window, context.processEnv)).toBe(expectation);
+            expect(resolveEnv(TEST_KEY, context.processEnv, context.window)).toBe(expectation);
         });
         test.each(withContextTests)('%p - %p', (name, { expectation, context }) => {
-            expect(resolveEnv(TEST_KEY, context.window, context.processEnv)).toBe(expectation);
+            expect(resolveEnv(TEST_KEY, context.processEnv, context.window)).toBe(expectation);
         });
     });
     describe('with supercontext', () => {
