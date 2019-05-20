@@ -45,7 +45,7 @@ export default () => {
 
 ```
 
-:warning: ### note on 'resolveEnv`: 
+### :warning: note on 'resolveEnv`: 
 
 if you want `resolveEnv` to work in both dev (`react-scripts start`) and production (`node server.js`), pass `process.env` as second argument to `resolveEnv`, or do something like `myFoo = process.env.FOO || resolveEnv('FOO)`.
 
