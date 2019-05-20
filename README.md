@@ -2,11 +2,11 @@
 
 express utility to safely inject variables from `process.env` (node.js) into `window.env` (react)
 
-### install
+### Install
 
 `npm install react-process-env`
 
-### use
+### Quick Start
 
 ```javascript
 // server.js
@@ -45,11 +45,11 @@ export default () => {
 
 ```
 
-### :warning: note on 'resolveEnv`: 
+### :warning: note on `resolveEnv`: 
 
 if you want `resolveEnv` to work in both dev (`react-scripts start`) and production (`node server.js`), pass `process.env` as second argument to `resolveEnv`, or do something like `myFoo = process.env.FOO || resolveEnv('FOO)`.
 
-### security considerations
+### Security Considerations
 
 #### :warning: Do not pass any secret data in payload
 
