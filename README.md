@@ -40,14 +40,18 @@ export default () => {
     /**
     * Reads window.env.FOO on `express` (production), or process.env.FOO on `react-scripts start` (development)
     */
-    const myFoo = resolveEnv('FOO');
+    const myFoo = resolveEnv('FOO', process.env);
 }
 
 ```
 
+:warning: ### note on 'resolveEnv`: 
+
+if you want `resolveEnv` to work in both dev (`react-scripts start`) and production (`node server.js`), pass `process.env` as second argument to `resolveEnv`, or do something like `myFoo = process.env.FOO || resolveEnv('FOO)`.
+
 ### security considerations
 
-#### :warning: Do not pass any secure data in payload
+#### :warning: Do not pass any secret data in payload
 
 The injected payload will be public in `index.html`, so don't pass anything you don't want to world to see.
 
