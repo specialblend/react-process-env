@@ -1,12 +1,12 @@
-import * as R from 'ramda';
+import { join, map } from 'ramda';
 
-import { resolveEnv } from './resolve';
+import resolve from './resolve';
 
 const VALUE_PROCESS = 'VALUE_PROCESS';
 const VALUE_WINDOW = 'VALUE_WINDOW';
 const TEST_KEY = 'TEST_KEY';
 
-const generalTests = R.map(({ name, expectation, context }) => [R.join(' - ', [name, expectation]), { expectation, context }], [
+const generalTests = map(({ name, expectation, context }) => [join(' - ', [name, expectation]), { expectation, context }], [
     {
         name: 'context.process.env[prop] is empty, context.window.env[prop] is set',
         context: {
@@ -59,7 +59,7 @@ const generalTests = R.map(({ name, expectation, context }) => [R.join(' - ', [n
     },
 ]);
 
-const withContextTests = R.map(({ name, ...props }) => [name, props], [
+const withContextTests = map(({ name, ...props }) => [name, props], [
     {
         name: 'context is empty object',
         context: {},
@@ -86,12 +86,13 @@ const withContextTests = R.map(({ name, ...props }) => [name, props], [
     },
 ]);
 
+
 /**
  * Reflect provided context onto global window and process
  * @param {Object} context context
  * @return {void}
  */
-const reflectSuperContext = context => {
+function reflectSuperContext(context) {
     Reflect.deleteProperty(process.env, TEST_KEY);
     Reflect.deleteProperty(global, 'env');
     if (context.processEnv) {
@@ -102,21 +103,21 @@ const reflectSuperContext = context => {
             global.env = context.window.env;
         }
     }
-};
+}
 
 describe('resolves expected prop', () => {
     describe('when passing context', () => {
         test.each(generalTests)('%p - %p', (name, { expectation, context }) => {
-            expect(resolveEnv(TEST_KEY, context.processEnv, context.window)).toBe(expectation);
+            expect(resolve(TEST_KEY, context.processEnv, context.window)).toBe(expectation);
         });
         test.each(withContextTests)('%p - %p', (name, { expectation, context }) => {
-            expect(resolveEnv(TEST_KEY, context.processEnv, context.window)).toBe(expectation);
+            expect(resolve(TEST_KEY, context.processEnv, context.window)).toBe(expectation);
         });
     });
     describe('with supercontext', () => {
         test.each(generalTests)('%p - %p', (name, { expectation, context }) => {
             reflectSuperContext(context);
-            expect(resolveEnv(TEST_KEY)).toBe(expectation);
+            expect(resolve(TEST_KEY)).toBe(expectation);
         });
     });
 });

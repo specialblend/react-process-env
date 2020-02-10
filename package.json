@@ -1,24 +1,22 @@
 {
-  "main": "dist/index.cjs.js",
-  "module": "dist/index.esm.js",
-  "browser": "dist/index.umd.js",
+  "main": "lib/index.js",
   "version": "0.0.42",
   "scripts": {
     "test": "jest",
     "coverage": "jest --coverage",
     "lint": "eslint .",
-    "build": "webpack && rollup -c",
-    "build:dev": "webpack --mode=development && rollup -c -w",
+    "build": "tsc",
     "check": "npm run build && npm run test && npm run coverage && npm run lint",
     "clean": "rm -rf lib coverage",
+    "prebuild": "npm run clean",
     "pretest": "npm run build",
-    "docs:generate": "cat support/README.md > README.md && jsdoc2md dist/index.esm.js >> README.md",
+    "docs:generate": "cat support/README.md > README.md && jsdoc2md lib/index.js >> README.md",
     "docs:commit": "git add README.md support && git diff-index --quiet HEAD || git commit -m \"update documentation\"",
     "docs": "npm run docs:generate && npm run docs:commit",
     "prepublishOnly": "npm run build && npm run docs"
   },
   "files": [
-    "dist"
+    "lib"
   ],
   "name": "react-process-env",
   "description": "express utility to safely inject variables from process.env (node.js) into window.env (react)",
@@ -40,6 +38,7 @@
   "devDependencies": {
     "@babel/core": "^7.8.4",
     "@babel/preset-env": "^7.8.4",
+    "@babel/preset-typescript": "^7.8.3",
     "@specialblend/eslint-config": "^0.4.4",
     "eslint": "^6.8.0",
     "jest": "^25.1.0",
@@ -48,6 +47,8 @@
     "typescript": "^3.7.5"
   },
   "dependencies": {
+    "@types/cheerio": "^0.22.16",
+    "@types/ramda": "^0.26.41",
     "cheerio": "^1.0.0-rc.3",
     "ramda": "^0.26.1"
   }

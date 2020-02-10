@@ -1,23 +1,12 @@
-const packageUMD = require('./dist/index.umd');
-const packageCJS = require('./dist/index.cjs');
-const packageESM = require('./dist/index.esm');
-const packageJSON = require('./package.json');
+const _module = require('./lib');
+const functions = ['inject', 'injectScript', 'renderScript', 'resolve'];
 
-const packages = [['UMD', packageUMD], ['CJS', packageCJS], ['ESM', packageESM]];
-const functions = ['injectPayload', 'injectScript', 'renderScript', 'resolveEnv'];
+describe('compiled module', () => {
+    test('exports default function', () => {
+        expect(_module.default).toBeFunction();
 
-describe('package.json has correct outputs', () => {
-    expect(packageJSON).toMatchObject({
-        main: 'dist/index.cjs.js',
-        module: 'dist/index.esm.js',
-        browser: 'dist/index.umd.js',
     });
-});
-
-describe('exports correctly', () => {
-    describe.each(packages)('package type=%p', (label, __package__) => {
-        test.each(functions)('function name=%p', funcName => {
-            expect(__package__).toHaveProperty(funcName, expect.any(Function));
-        });
+    test.each(functions)('exports function %p', funcName => {
+        expect(_module[funcName]).toBeFunction();
     });
 });

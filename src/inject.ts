@@ -1,6 +1,6 @@
 import assert from 'assert';
 import cheerio from 'cheerio';
-import { all, complement, compose, concat, flip, is, path, prop, unary, valuesIn } from 'ramda';
+import {all, complement, compose, concat, flip, is, unary, valuesIn} from 'ramda';
 
 
 type Callable = Function | ((... args: any[]) => any)
@@ -106,13 +106,3 @@ export default function inject(payload: Record<string, any>, resolver:Callable):
     };
 }
 
-/**
- * Resolve property from `process.env` (`react-scripts`/development), or `window.env` (`express`/production)
- * @param {string} property name of property to resolve
- * @param {object} processEnv process.env
- * @param {object} window global/window
- * @return {*} value of the resolved property
- */
-export function resolve(property: string, processEnv = process.env, window = global): any {
-    return prop(property, processEnv) || path(['env', property], window) || null;
-}

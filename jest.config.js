@@ -1,7 +1,7 @@
 module.exports = {
     collectCoverageFrom: [
+        '**/*.ts',
         '**/*.js',
-        '**/*.jsx',
     ],
     coverageThreshold: {
         global: {
@@ -13,12 +13,11 @@ module.exports = {
     },
     coveragePathIgnorePatterns: [
         '<rootDir>/node_modules/',
-        '<rootDir>/dist/',
+        '<rootDir>/lib/',
         '<rootDir>/coverage/',
         '<rootDir>/jest.config.js',
-        '<rootDir>/webpack.config.js',
+        '<rootDir>/src/index.ts',
     ],
-    globalSetup: './__mocks__/environment.js',
     setupFilesAfterEnv: ['./__mocks__/support.js'],
     testEnvironment: 'node',
 };
