@@ -1,6 +1,6 @@
 import { join, map } from 'ramda';
 
-import resolve from './resolve';
+import { resolve } from './index';
 
 const VALUE_PROCESS = 'VALUE_PROCESS';
 const VALUE_WINDOW = 'VALUE_WINDOW';

@@ -5,7 +5,7 @@ import inject, {
     checkPayload, decodeData, encodeData, ERROR_INJECT_NON_SCALAR_PAYLOAD, ERROR_INJECT_PROCESS_ENV, fromBase64,
     injectScript,
     renderScript,
-} from './inject';
+} from './index';
 
 const safePayloads = {
     FOO_BAR: '__TEST_FOO_BAR__',

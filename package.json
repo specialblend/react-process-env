@@ -1,5 +1,6 @@
 {
   "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "version": "0.0.42",
   "scripts": {
     "test": "jest",
