@@ -1,6 +1,7 @@
-import * as R from 'ramda';
-import cheerio from 'cheerio';
 import assert from 'assert';
+import cheerio from 'cheerio';
+import * as R from 'ramda';
+
 import {
     encodeData,
     ERROR_INJECT_NON_SCALAR_PAYLOAD,

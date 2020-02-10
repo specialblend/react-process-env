@@ -1,10 +1,12 @@
 import * as R from 'ramda';
+
+import xssPayloads from '../__mocks__/xss-payloads';
 import {
-    fromBase64,
-    encodeData,
     decodeData,
+    encodeData,
     ERROR_INJECT_NON_SCALAR_PAYLOAD,
     ERROR_INJECT_PROCESS_ENV,
+    fromBase64,
 } from './common';
 import {
     checkPayload,
@@ -12,7 +14,6 @@ import {
     injectScript,
     renderScript,
 } from './inject';
-import xssPayloads from '../__mocks__/xss-payloads';
 
 const safePayloads = {
     FOO_BAR: '__TEST_FOO_BAR__',

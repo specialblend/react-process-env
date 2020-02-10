@@ -1,4 +1,5 @@
 import * as R from 'ramda';
+
 import { resolveEnv } from './resolve';
 
 const VALUE_PROCESS = 'VALUE_PROCESS';
