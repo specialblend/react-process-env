@@ -19,7 +19,7 @@
   "files": [
     "lib"
   ],
-  "name": "react-process-env",
+  "name": "@specialblend/react-process-env",
   "description": "express utility to safely inject variables from process.env (node.js) into window.env (react)",
   "repository": {
     "type": "git",
