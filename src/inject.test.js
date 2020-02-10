@@ -1,19 +1,11 @@
 import * as R from 'ramda';
 
 import xssPayloads from '../__mocks__/xss-payloads';
-import {
-    decodeData,
-    encodeData,
-    ERROR_INJECT_NON_SCALAR_PAYLOAD,
-    ERROR_INJECT_PROCESS_ENV,
-    fromBase64,
-} from './common';
-import {
-    checkPayload,
-    injectPayload,
+import inject, {
+    checkPayload, decodeData, encodeData, ERROR_INJECT_NON_SCALAR_PAYLOAD, ERROR_INJECT_PROCESS_ENV, fromBase64,
     injectScript,
     renderScript,
-} from './inject';
+} from './index';
 
 const safePayloads = {
     FOO_BAR: '__TEST_FOO_BAR__',
@@ -170,14 +162,14 @@ describe('injectScript', () => {
     });
 });
 
-describe('injectPayload', () => {
+describe('inject', () => {
     test('works as expected', async() => {
-        const body = '<html><head></head><body>Hello, world!</body></html>';
+        const body = '<html lang="en"><head></head><body>Hello, world!</body></html>';
         const page = injectScript(payload, body);
         const resolve = R.always(Promise.resolve(body));
         const res = { send: jest.fn() };
         const next = jest.fn();
-        const injectEnv = injectPayload(payload, resolve);
+        const injectEnv = inject(payload, resolve);
         await injectEnv(null, res, next);
         expect(res.send).toHaveBeenCalledWith(page);
         expect(next).not.toHaveBeenCalled();
@@ -186,7 +178,7 @@ describe('injectPayload', () => {
         test('when payload is process.env', () => {
             expect.assertions(1);
             try {
-                injectPayload(process.env);
+                inject(process.env);
             } catch (err) {
                 expect(err.message).toMatch(ERROR_INJECT_PROCESS_ENV);
             }
@@ -202,7 +194,7 @@ describe('injectPayload', () => {
                 },
             };
             try {
-                injectPayload({
+                inject({
                     ...payload,
                     ...nonScalarPayload,
                 });

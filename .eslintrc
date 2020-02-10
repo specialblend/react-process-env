@@ -1,6 +1,5 @@
 {
-  "extends": "@specialblend/eslint-config/node",
-  "parser": "babel-eslint",
+  "extends": "@specialblend/eslint-config/mixed",
   "rules": {
     "no-process-env": "off"
   }
