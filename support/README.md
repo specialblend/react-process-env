@@ -51,11 +51,11 @@ if you want `resolve` to work in both dev (`react-scripts start`) and production
 
 ### Security Considerations
 
-#### :warning: Do not pass any secret data in payload
+#### :warning: Do NOT pass ANY SECRET DATA in payload
 
-The injected payload will be public in `index.html`, so don't pass anything you don't want to world to see.
+The injected payload will be PUBLIC in `index.html`, so don't pass anything you don't want the world to see.
 
-#### :warning: Do not pass `process.env` directly as payload
+#### :warning: Do NOT pass `process.env` directly as payload
 
 It's a security risk. If you pass `process.env` directly, it will throw an assertion error.
 
